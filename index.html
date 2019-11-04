@@ -1,0 +1,4128 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/sainte_marieprojets_0.js"></script>
+        <script src="data/morne_vertprojets_1.js"></script>
+        <script src="data/marigotprojets_2.js"></script>
+        <script src="data/lerobertprojets_3.js"></script>
+        <script src="data/LePrecheurprojets_4.js"></script>
+        <script src="data/latrinitprojets_5.js"></script>
+        <script src="data/gros_morneprojets_6.js"></script>
+        <script src="data/le_lorrainprojets_7.js"></script>
+        <script src="data/saint_pierreprojets_8.js"></script>
+        <script src="data/FondsSaintDenisprojets_9.js"></script>
+        <script src="data/macoubaprojets_10.js"></script>
+        <script src="data/le_carbetprojets_11.js"></script>
+        <script src="data/ajoupa_bouillonprojets_12.js"></script>
+        <script src="data/bassepointeprojets_13.js"></script>
+        <script src="data/LeMorneVertPLU_14.js"></script>
+        <script src="data/SaintPierrePLU_15.js"></script>
+        <script src="data/LeMorneRougePLU_16.js"></script>
+        <script src="data/MarigotPLU_17.js"></script>
+        <script src="data/LeLorrainPLU_18.js"></script>
+        <script src="data/GrandRivierePLU_19.js"></script>
+        <script src="data/LeCarbetPLU_20.js"></script>
+        <script src="data/BelleFontainePLU_21.js"></script>
+        <script src="data/AjoupaBouillonPLU_22.js"></script>
+        <script src="data/CasePilotePLU_23.js"></script>
+        <script src="data/BassePointePLU_24.js"></script>
+        <script src="data/GrosMornePLU_25.js"></script>
+        <script src="data/SainteMariePLU_26.js"></script>
+        <script src="data/LaTrinitPLU_27.js"></script>
+        <script src="data/LePrcheurPLU_28.js"></script>
+        <script src="data/LeRobertPLU_29.js"></script>
+        <script src="data/PPRNAlafortetmajeur_30.js"></script>
+        <script src="data/ParcellesidentifiesparlenquteOPAH_31.js"></script>
+        <script src="data/ParcellesnonbtiesconcernesparlePPRN_32.js"></script>
+        <script src="data/ParcellesbtiesconcernesparlesprescriptionsduPLU_33.js"></script>
+        <script src="data/Parcellesnonbties_34.js"></script>
+        <script src="data/ParcellesbtiesconcernesparlePPRN_35.js"></script>
+        <script src="data/Parcellesbaties_36.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_sainte_marieprojets_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_sainte_marieprojets_0_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Création de la déchetterie, à l’entrée de la futur citée Scolaire sur terrain de 3 000m2.':
+                    return {
+                pane: 'pane_sainte_marieprojets_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(75,143,211,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création du futur site scolaire Collège + Lycée de Belle Etoile':
+                    return {
+                pane: 'pane_sainte_marieprojets_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,91,188,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création d\'un centre de tri':
+                    return {
+                pane: 'pane_sainte_marieprojets_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,101,93,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création d\'une caserne de pompier':
+                    return {
+                pane: 'pane_sainte_marieprojets_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(240,229,102,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création d\'une gendarmerie':
+                    return {
+                pane: 'pane_sainte_marieprojets_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(113,40,238,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Restauration':
+                    return {
+                pane: 'pane_sainte_marieprojets_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,208,151,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_sainte_marieprojets_0');
+        map.getPane('pane_sainte_marieprojets_0').style.zIndex = 400;
+        map.getPane('pane_sainte_marieprojets_0').style['mix-blend-mode'] = 'normal';
+        var layer_sainte_marieprojets_0 = new L.geoJson(json_sainte_marieprojets_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_sainte_marieprojets_0',
+            layerName: 'layer_sainte_marieprojets_0',
+            pane: 'pane_sainte_marieprojets_0',
+            onEachFeature: pop_sainte_marieprojets_0,
+            style: style_sainte_marieprojets_0_0,
+        });
+        bounds_group.addLayer(layer_sainte_marieprojets_0);
+        map.addLayer(layer_sainte_marieprojets_0);
+        function pop_morne_vertprojets_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_morne_vertprojets_1_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Atelier centre technique':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,207,157,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bati de la poste':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(203,88,56,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Construction d\'une résidence sénior':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,85,134,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Désenclavement bourg et désserte zone AU':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(70,230,73,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Désenclavement Canton Suisse via Morne Madame':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,17,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Exploitation dents creuses centre bourg':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(156,212,78,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Petite place de marché':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(93,116,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Projet de parking Bout Barrière':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,178,214,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'projet d\'héliport':
+                    return {
+                pane: 'pane_morne_vertprojets_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,125,221,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_morne_vertprojets_1');
+        map.getPane('pane_morne_vertprojets_1').style.zIndex = 401;
+        map.getPane('pane_morne_vertprojets_1').style['mix-blend-mode'] = 'normal';
+        var layer_morne_vertprojets_1 = new L.geoJson(json_morne_vertprojets_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_morne_vertprojets_1',
+            layerName: 'layer_morne_vertprojets_1',
+            pane: 'pane_morne_vertprojets_1',
+            onEachFeature: pop_morne_vertprojets_1,
+            style: style_morne_vertprojets_1_0,
+        });
+        bounds_group.addLayer(layer_morne_vertprojets_1);
+        map.addLayer(layer_morne_vertprojets_1);
+        function pop_marigotprojets_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_marigotprojets_2_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case '24 logements SIMAR':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,159,40,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Acceuil de jour pour personnes âgées':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,166,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Aire de jeux Fonds d\'Or':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(16,214,12,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Aménagement de la Baie des Fonds d\'Or':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,234,124,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Construction d\'un gymnase':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,105,188,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Ecole Baignoire':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,127,159,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mise en place d\'une réserve foncière':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(162,45,201,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Projet Seguineau':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(142,237,229,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Régularisation d\'occupants sans titre de séjour (Mazure, Bas du Temple)':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,85,64,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sentier touristique':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,216,136,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Stade de Papin':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(87,21,239,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zac de la Pointe':
+                    return {
+                pane: 'pane_marigotprojets_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,215,22,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_marigotprojets_2');
+        map.getPane('pane_marigotprojets_2').style.zIndex = 402;
+        map.getPane('pane_marigotprojets_2').style['mix-blend-mode'] = 'normal';
+        var layer_marigotprojets_2 = new L.geoJson(json_marigotprojets_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_marigotprojets_2',
+            layerName: 'layer_marigotprojets_2',
+            pane: 'pane_marigotprojets_2',
+            onEachFeature: pop_marigotprojets_2,
+            style: style_marigotprojets_2_0,
+        });
+        bounds_group.addLayer(layer_marigotprojets_2);
+        map.addLayer(layer_marigotprojets_2);
+        function pop_lerobertprojets_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_lerobertprojets_3_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Aménagement du front de mer':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(155,229,45,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Construction de la médiathèque':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,122,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Construction du centre administratif':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,146,108,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Esplanade en amphithéâtre':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(111,221,105,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Maison pour tous':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(47,235,141,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation urbaine sur l’îlot Derrière Bourg':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,232,237,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation urbaine sur l’îlot Derrière Bourg - parcelles appartenant à l’Etat':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,94,178,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation urbaine sur l’îlot Gibraltar - parcelles appartenant à l’Etat':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(74,134,216,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation urbaine sur l’îlot Gibraltar - parcelles en cours d’expropriation par l’EPFL':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,67,216,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Restructuration de l’îlot de la Poste':
+                    return {
+                pane: 'pane_lerobertprojets_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,23,73,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_lerobertprojets_3');
+        map.getPane('pane_lerobertprojets_3').style.zIndex = 403;
+        map.getPane('pane_lerobertprojets_3').style['mix-blend-mode'] = 'normal';
+        var layer_lerobertprojets_3 = new L.geoJson(json_lerobertprojets_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_lerobertprojets_3',
+            layerName: 'layer_lerobertprojets_3',
+            pane: 'pane_lerobertprojets_3',
+            onEachFeature: pop_lerobertprojets_3,
+            style: style_lerobertprojets_3_0,
+        });
+        bounds_group.addLayer(layer_lerobertprojets_3);
+        map.addLayer(layer_lerobertprojets_3);
+        function pop_LePrecheurprojets_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LePrecheurprojets_4_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Projet de relogement " CHAMBOLO"':
+                    return {
+                pane: 'pane_LePrecheurprojets_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,208,184,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Projet de relogement "Habitats Renouvelés"':
+                    return {
+                pane: 'pane_LePrecheurprojets_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(191,122,214,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LePrecheurprojets_4');
+        map.getPane('pane_LePrecheurprojets_4').style.zIndex = 404;
+        map.getPane('pane_LePrecheurprojets_4').style['mix-blend-mode'] = 'normal';
+        var layer_LePrecheurprojets_4 = new L.geoJson(json_LePrecheurprojets_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LePrecheurprojets_4',
+            layerName: 'layer_LePrecheurprojets_4',
+            pane: 'pane_LePrecheurprojets_4',
+            onEachFeature: pop_LePrecheurprojets_4,
+            style: style_LePrecheurprojets_4_0,
+        });
+        bounds_group.addLayer(layer_LePrecheurprojets_4);
+        map.addLayer(layer_LePrecheurprojets_4);
+        function pop_latrinitprojets_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_latrinitprojets_5_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Mise en place d\'une Reserve foncière':
+                    return {
+                pane: 'pane_latrinitprojets_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,83,183,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_latrinitprojets_5');
+        map.getPane('pane_latrinitprojets_5').style.zIndex = 405;
+        map.getPane('pane_latrinitprojets_5').style['mix-blend-mode'] = 'normal';
+        var layer_latrinitprojets_5 = new L.geoJson(json_latrinitprojets_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_latrinitprojets_5',
+            layerName: 'layer_latrinitprojets_5',
+            pane: 'pane_latrinitprojets_5',
+            onEachFeature: pop_latrinitprojets_5,
+            style: style_latrinitprojets_5_0,
+        });
+        bounds_group.addLayer(layer_latrinitprojets_5);
+        map.addLayer(layer_latrinitprojets_5);
+        function pop_gros_morneprojets_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_gros_morneprojets_6_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Echange foncier en cours':
+                    return {
+                pane: 'pane_gros_morneprojets_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(208,79,109,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Parcelles acquises par l\'EPFL':
+                    return {
+                pane: 'pane_gros_morneprojets_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(162,100,209,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Parcelles de projet : redynamisation du bourg':
+                    return {
+                pane: 'pane_gros_morneprojets_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,219,142,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Parcelles en cours d\'acquisition par l\'EPFL':
+                    return {
+                pane: 'pane_gros_morneprojets_6',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(108,189,233,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_gros_morneprojets_6');
+        map.getPane('pane_gros_morneprojets_6').style.zIndex = 406;
+        map.getPane('pane_gros_morneprojets_6').style['mix-blend-mode'] = 'normal';
+        var layer_gros_morneprojets_6 = new L.geoJson(json_gros_morneprojets_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_gros_morneprojets_6',
+            layerName: 'layer_gros_morneprojets_6',
+            pane: 'pane_gros_morneprojets_6',
+            onEachFeature: pop_gros_morneprojets_6,
+            style: style_gros_morneprojets_6_0,
+        });
+        bounds_group.addLayer(layer_gros_morneprojets_6);
+        map.addLayer(layer_gros_morneprojets_6);
+        function pop_le_lorrainprojets_7(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_le_lorrainprojets_7_0(feature) {
+            switch(String(feature.properties['projets'])) {
+                case 'Création d\'une Kassaverie':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(200,131,34,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création d\'une ZAC artisanale':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,213,198,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Déchetterie à construire sur l\'ancien terrain SICA':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(86,230,98,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Développement d\'une zone économique en entrée de bourg dans le quartier de Seguineau':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,95,239,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Opération publique à Morne Capot visant à améliorer la mixité sociale (projet en cours de définition. Horizon moyen terme).':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,70,201,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Projet privé d\'accueil de touristes + centre équestre':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(218,68,93,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Reconstruction de la STEP':
+                    return {
+                pane: 'pane_le_lorrainprojets_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(112,152,207,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_le_lorrainprojets_7');
+        map.getPane('pane_le_lorrainprojets_7').style.zIndex = 407;
+        map.getPane('pane_le_lorrainprojets_7').style['mix-blend-mode'] = 'normal';
+        var layer_le_lorrainprojets_7 = new L.geoJson(json_le_lorrainprojets_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_le_lorrainprojets_7',
+            layerName: 'layer_le_lorrainprojets_7',
+            pane: 'pane_le_lorrainprojets_7',
+            onEachFeature: pop_le_lorrainprojets_7,
+            style: style_le_lorrainprojets_7_0,
+        });
+        bounds_group.addLayer(layer_le_lorrainprojets_7);
+        map.addLayer(layer_le_lorrainprojets_7);
+        function pop_saint_pierreprojets_8(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_saint_pierreprojets_8_0(feature) {
+            switch(String(feature.properties['projets'])) {
+                case 'Création d’une zone de mouillage organisée':
+                    return {
+                pane: 'pane_saint_pierreprojets_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,115,148,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Remise aux normes parasismique des écoles':
+                    return {
+                pane: 'pane_saint_pierreprojets_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,172,77,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation de l’ancienne cantine du Stade Gabriel SUVELOR':
+                    return {
+                pane: 'pane_saint_pierreprojets_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(18,90,215,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation et mise aux normes du bâtiment ROY CAMILLE':
+                    return {
+                pane: 'pane_saint_pierreprojets_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(160,227,118,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_saint_pierreprojets_8');
+        map.getPane('pane_saint_pierreprojets_8').style.zIndex = 408;
+        map.getPane('pane_saint_pierreprojets_8').style['mix-blend-mode'] = 'normal';
+        var layer_saint_pierreprojets_8 = new L.geoJson(json_saint_pierreprojets_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_saint_pierreprojets_8',
+            layerName: 'layer_saint_pierreprojets_8',
+            pane: 'pane_saint_pierreprojets_8',
+            onEachFeature: pop_saint_pierreprojets_8,
+            style: style_saint_pierreprojets_8_0,
+        });
+        bounds_group.addLayer(layer_saint_pierreprojets_8);
+        map.addLayer(layer_saint_pierreprojets_8);
+        function pop_FondsSaintDenisprojets_9(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_FondsSaintDenisprojets_9_0(feature) {
+            switch(String(feature.properties['projets'])) {
+                case 'Construction d’une épicerie sociale sur le quartier de La Tranchée sur 2 étages':
+                    return {
+                pane: 'pane_FondsSaintDenisprojets_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(120,33,226,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Construction d\'un terrain de sport':
+                    return {
+                pane: 'pane_FondsSaintDenisprojets_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,99,68,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création d’un musée sur le terrain de l’ancien observatoire qui appartient à la CTM':
+                    return {
+                pane: 'pane_FondsSaintDenisprojets_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,221,91,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Ouverture vers Saint Pierre via le col Yang Ting. Travaux d’infrastructure routière trop forte':
+                    return {
+                pane: 'pane_FondsSaintDenisprojets_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(38,113,225,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Réalisation d’un EHPAD sur une parcelle privée':
+                    return {
+                pane: 'pane_FondsSaintDenisprojets_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(42,213,168,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation de l\'église':
+                    return {
+                pane: 'pane_FondsSaintDenisprojets_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(119,235,104,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_FondsSaintDenisprojets_9');
+        map.getPane('pane_FondsSaintDenisprojets_9').style.zIndex = 409;
+        map.getPane('pane_FondsSaintDenisprojets_9').style['mix-blend-mode'] = 'normal';
+        var layer_FondsSaintDenisprojets_9 = new L.geoJson(json_FondsSaintDenisprojets_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_FondsSaintDenisprojets_9',
+            layerName: 'layer_FondsSaintDenisprojets_9',
+            pane: 'pane_FondsSaintDenisprojets_9',
+            onEachFeature: pop_FondsSaintDenisprojets_9,
+            style: style_FondsSaintDenisprojets_9_0,
+        });
+        bounds_group.addLayer(layer_FondsSaintDenisprojets_9);
+        map.addLayer(layer_FondsSaintDenisprojets_9);
+        function pop_macoubaprojets_10(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_macoubaprojets_10_0(feature) {
+            switch(String(feature.properties['projets'])) {
+                case 'Création de logements derrière le lottissement Case Paul':
+                    return {
+                pane: 'pane_macoubaprojets_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,84,47,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création d\'une résidence sénior':
+                    return {
+                pane: 'pane_macoubaprojets_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(181,52,236,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Terrain de 2 000m2 en friche à utiliser':
+                    return {
+                pane: 'pane_macoubaprojets_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(73,203,13,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_macoubaprojets_10');
+        map.getPane('pane_macoubaprojets_10').style.zIndex = 410;
+        map.getPane('pane_macoubaprojets_10').style['mix-blend-mode'] = 'normal';
+        var layer_macoubaprojets_10 = new L.geoJson(json_macoubaprojets_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_macoubaprojets_10',
+            layerName: 'layer_macoubaprojets_10',
+            pane: 'pane_macoubaprojets_10',
+            onEachFeature: pop_macoubaprojets_10,
+            style: style_macoubaprojets_10_0,
+        });
+        bounds_group.addLayer(layer_macoubaprojets_10);
+        map.addLayer(layer_macoubaprojets_10);
+        function pop_le_carbetprojets_11(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_le_carbetprojets_11_0(feature) {
+            switch(String(feature.properties['projets'])) {
+                case 'Centre commercial':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(173,230,50,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Délocalisation collège':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,25,64,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Déolocalisation des services techniques':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(236,170,84,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Equipements commerciaux dans les quartiers excentrés':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,105,211,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Marché fruits et légumes':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(102,159,234,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Parking visiteurs et enseignants':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(119,226,126,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rénovation / extension de l\'Hôtel de Ville':
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,233,196,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_le_carbetprojets_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(154,124,217,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_le_carbetprojets_11');
+        map.getPane('pane_le_carbetprojets_11').style.zIndex = 411;
+        map.getPane('pane_le_carbetprojets_11').style['mix-blend-mode'] = 'normal';
+        var layer_le_carbetprojets_11 = new L.geoJson(json_le_carbetprojets_11, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_le_carbetprojets_11',
+            layerName: 'layer_le_carbetprojets_11',
+            pane: 'pane_le_carbetprojets_11',
+            onEachFeature: pop_le_carbetprojets_11,
+            style: style_le_carbetprojets_11_0,
+        });
+        bounds_group.addLayer(layer_le_carbetprojets_11);
+        map.addLayer(layer_le_carbetprojets_11);
+        function pop_ajoupa_bouillonprojets_12(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_ajoupa_bouillonprojets_12_0(feature) {
+            switch(String(feature.properties['projets'])) {
+                case 'Consctruction d\'une station-service en entrée de bourg':
+                    return {
+                pane: 'pane_ajoupa_bouillonprojets_12',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,190,118,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Création de logements séniors type MARPA  sur terrain de 3,5 Ha à proximité de Cité Grenade':
+                    return {
+                pane: 'pane_ajoupa_bouillonprojets_12',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,218,191,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ajoupa_bouillonprojets_12');
+        map.getPane('pane_ajoupa_bouillonprojets_12').style.zIndex = 412;
+        map.getPane('pane_ajoupa_bouillonprojets_12').style['mix-blend-mode'] = 'normal';
+        var layer_ajoupa_bouillonprojets_12 = new L.geoJson(json_ajoupa_bouillonprojets_12, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ajoupa_bouillonprojets_12',
+            layerName: 'layer_ajoupa_bouillonprojets_12',
+            pane: 'pane_ajoupa_bouillonprojets_12',
+            onEachFeature: pop_ajoupa_bouillonprojets_12,
+            style: style_ajoupa_bouillonprojets_12_0,
+        });
+        bounds_group.addLayer(layer_ajoupa_bouillonprojets_12);
+        map.addLayer(layer_ajoupa_bouillonprojets_12);
+        function pop_bassepointeprojets_13(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_bassepointeprojets_13_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Construction d\'un bâti pour regroupement des établissements scolaires':
+                    return {
+                pane: 'pane_bassepointeprojets_13',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(93,206,90,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Réalisation d\'une MARPA':
+                    return {
+                pane: 'pane_bassepointeprojets_13',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,76,209,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Récupération d’un terrain stratégique classé AU':
+                    return {
+                pane: 'pane_bassepointeprojets_13',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,192,85,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Refonte de l\'église':
+                    return {
+                pane: 'pane_bassepointeprojets_13',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(65,187,211,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_bassepointeprojets_13');
+        map.getPane('pane_bassepointeprojets_13').style.zIndex = 413;
+        map.getPane('pane_bassepointeprojets_13').style['mix-blend-mode'] = 'normal';
+        var layer_bassepointeprojets_13 = new L.geoJson(json_bassepointeprojets_13, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_bassepointeprojets_13',
+            layerName: 'layer_bassepointeprojets_13',
+            pane: 'pane_bassepointeprojets_13',
+            onEachFeature: pop_bassepointeprojets_13,
+            style: style_bassepointeprojets_13_0,
+        });
+        bounds_group.addLayer(layer_bassepointeprojets_13);
+        map.addLayer(layer_bassepointeprojets_13);
+        function pop_LeMorneVertPLU_14(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LeMorneVertPLU_14_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LeMorneVertPLU_14',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique ou économique':
+                    return {
+                pane: 'pane_LeMorneVertPLU_14',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_LeMorneVertPLU_14',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeMorneVertPLU_14',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeMorneVertPLU_14',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_LeMorneVertPLU_14',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,220,111,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LeMorneVertPLU_14');
+        map.getPane('pane_LeMorneVertPLU_14').style.zIndex = 414;
+        map.getPane('pane_LeMorneVertPLU_14').style['mix-blend-mode'] = 'normal';
+        var layer_LeMorneVertPLU_14 = new L.geoJson(json_LeMorneVertPLU_14, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LeMorneVertPLU_14',
+            layerName: 'layer_LeMorneVertPLU_14',
+            pane: 'pane_LeMorneVertPLU_14',
+            onEachFeature: pop_LeMorneVertPLU_14,
+            style: style_LeMorneVertPLU_14_0,
+        });
+        bounds_group.addLayer(layer_LeMorneVertPLU_14);
+        map.addLayer(layer_LeMorneVertPLU_14);
+        function pop_SaintPierrePLU_15(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_SaintPierrePLU_15_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_SaintPierrePLU_15',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique ou économique':
+                    return {
+                pane: 'pane_SaintPierrePLU_15',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_SaintPierrePLU_15',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_SaintPierrePLU_15',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_SaintPierrePLU_15',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_SaintPierrePLU_15',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,220,111,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_SaintPierrePLU_15');
+        map.getPane('pane_SaintPierrePLU_15').style.zIndex = 415;
+        map.getPane('pane_SaintPierrePLU_15').style['mix-blend-mode'] = 'normal';
+        var layer_SaintPierrePLU_15 = new L.geoJson(json_SaintPierrePLU_15, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SaintPierrePLU_15',
+            layerName: 'layer_SaintPierrePLU_15',
+            pane: 'pane_SaintPierrePLU_15',
+            onEachFeature: pop_SaintPierrePLU_15,
+            style: style_SaintPierrePLU_15_0,
+        });
+        bounds_group.addLayer(layer_SaintPierrePLU_15);
+        map.addLayer(layer_SaintPierrePLU_15);
+        function pop_LeMorneRougePLU_16(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LeMorneRougePLU_16_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LeMorneRougePLU_16',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique ou économique':
+                    return {
+                pane: 'pane_LeMorneRougePLU_16',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_LeMorneRougePLU_16',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeMorneRougePLU_16',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeMorneRougePLU_16',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_LeMorneRougePLU_16',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,220,111,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LeMorneRougePLU_16');
+        map.getPane('pane_LeMorneRougePLU_16').style.zIndex = 416;
+        map.getPane('pane_LeMorneRougePLU_16').style['mix-blend-mode'] = 'normal';
+        var layer_LeMorneRougePLU_16 = new L.geoJson(json_LeMorneRougePLU_16, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LeMorneRougePLU_16',
+            layerName: 'layer_LeMorneRougePLU_16',
+            pane: 'pane_LeMorneRougePLU_16',
+            onEachFeature: pop_LeMorneRougePLU_16,
+            style: style_LeMorneRougePLU_16_0,
+        });
+        bounds_group.addLayer(layer_LeMorneRougePLU_16);
+        map.addLayer(layer_LeMorneRougePLU_16);
+        function pop_MarigotPLU_17(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_MarigotPLU_17_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_MarigotPLU_17',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique ou économique':
+                    return {
+                pane: 'pane_MarigotPLU_17',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_MarigotPLU_17',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_MarigotPLU_17',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_MarigotPLU_17',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_MarigotPLU_17',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,220,111,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_MarigotPLU_17');
+        map.getPane('pane_MarigotPLU_17').style.zIndex = 417;
+        map.getPane('pane_MarigotPLU_17').style['mix-blend-mode'] = 'normal';
+        var layer_MarigotPLU_17 = new L.geoJson(json_MarigotPLU_17, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MarigotPLU_17',
+            layerName: 'layer_MarigotPLU_17',
+            pane: 'pane_MarigotPLU_17',
+            onEachFeature: pop_MarigotPLU_17,
+            style: style_MarigotPLU_17_0,
+        });
+        bounds_group.addLayer(layer_MarigotPLU_17);
+        map.addLayer(layer_MarigotPLU_17);
+        function pop_LeLorrainPLU_18(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LeLorrainPLU_18_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LeLorrainPLU_18',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique ou économique':
+                    return {
+                pane: 'pane_LeLorrainPLU_18',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(33,128,191,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeLorrainPLU_18',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeLorrainPLU_18',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future':
+                    return {
+                pane: 'pane_LeLorrainPLU_18',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,191,111,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LeLorrainPLU_18');
+        map.getPane('pane_LeLorrainPLU_18').style.zIndex = 418;
+        map.getPane('pane_LeLorrainPLU_18').style['mix-blend-mode'] = 'normal';
+        var layer_LeLorrainPLU_18 = new L.geoJson(json_LeLorrainPLU_18, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LeLorrainPLU_18',
+            layerName: 'layer_LeLorrainPLU_18',
+            pane: 'pane_LeLorrainPLU_18',
+            onEachFeature: pop_LeLorrainPLU_18,
+            style: style_LeLorrainPLU_18_0,
+        });
+        bounds_group.addLayer(layer_LeLorrainPLU_18);
+        map.addLayer(layer_LeLorrainPLU_18);
+        function pop_GrandRivierePLU_19(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_GrandRivierePLU_19_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_GrandRivierePLU_19',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_GrandRivierePLU_19',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_GrandRivierePLU_19',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_GrandRivierePLU_19',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_GrandRivierePLU_19',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_GrandRivierePLU_19');
+        map.getPane('pane_GrandRivierePLU_19').style.zIndex = 419;
+        map.getPane('pane_GrandRivierePLU_19').style['mix-blend-mode'] = 'normal';
+        var layer_GrandRivierePLU_19 = new L.geoJson(json_GrandRivierePLU_19, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GrandRivierePLU_19',
+            layerName: 'layer_GrandRivierePLU_19',
+            pane: 'pane_GrandRivierePLU_19',
+            onEachFeature: pop_GrandRivierePLU_19,
+            style: style_GrandRivierePLU_19_0,
+        });
+        bounds_group.addLayer(layer_GrandRivierePLU_19);
+        map.addLayer(layer_GrandRivierePLU_19);
+        function pop_LeCarbetPLU_20(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LeCarbetPLU_20_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LeCarbetPLU_20',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_LeCarbetPLU_20',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_LeCarbetPLU_20',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeCarbetPLU_20',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeCarbetPLU_20',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LeCarbetPLU_20');
+        map.getPane('pane_LeCarbetPLU_20').style.zIndex = 420;
+        map.getPane('pane_LeCarbetPLU_20').style['mix-blend-mode'] = 'normal';
+        var layer_LeCarbetPLU_20 = new L.geoJson(json_LeCarbetPLU_20, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LeCarbetPLU_20',
+            layerName: 'layer_LeCarbetPLU_20',
+            pane: 'pane_LeCarbetPLU_20',
+            onEachFeature: pop_LeCarbetPLU_20,
+            style: style_LeCarbetPLU_20_0,
+        });
+        bounds_group.addLayer(layer_LeCarbetPLU_20);
+        map.addLayer(layer_LeCarbetPLU_20);
+        function pop_BelleFontainePLU_21(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_BelleFontainePLU_21_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_BelleFontainePLU_21',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_BelleFontainePLU_21',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_BelleFontainePLU_21',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_BelleFontainePLU_21',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_BelleFontainePLU_21',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_BelleFontainePLU_21',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_BelleFontainePLU_21');
+        map.getPane('pane_BelleFontainePLU_21').style.zIndex = 421;
+        map.getPane('pane_BelleFontainePLU_21').style['mix-blend-mode'] = 'normal';
+        var layer_BelleFontainePLU_21 = new L.geoJson(json_BelleFontainePLU_21, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BelleFontainePLU_21',
+            layerName: 'layer_BelleFontainePLU_21',
+            pane: 'pane_BelleFontainePLU_21',
+            onEachFeature: pop_BelleFontainePLU_21,
+            style: style_BelleFontainePLU_21_0,
+        });
+        bounds_group.addLayer(layer_BelleFontainePLU_21);
+        map.addLayer(layer_BelleFontainePLU_21);
+        function pop_AjoupaBouillonPLU_22(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_AjoupaBouillonPLU_22_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_AjoupaBouillonPLU_22',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_AjoupaBouillonPLU_22',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_AjoupaBouillonPLU_22',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_AjoupaBouillonPLU_22',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_AjoupaBouillonPLU_22',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_AjoupaBouillonPLU_22');
+        map.getPane('pane_AjoupaBouillonPLU_22').style.zIndex = 422;
+        map.getPane('pane_AjoupaBouillonPLU_22').style['mix-blend-mode'] = 'normal';
+        var layer_AjoupaBouillonPLU_22 = new L.geoJson(json_AjoupaBouillonPLU_22, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AjoupaBouillonPLU_22',
+            layerName: 'layer_AjoupaBouillonPLU_22',
+            pane: 'pane_AjoupaBouillonPLU_22',
+            onEachFeature: pop_AjoupaBouillonPLU_22,
+            style: style_AjoupaBouillonPLU_22_0,
+        });
+        bounds_group.addLayer(layer_AjoupaBouillonPLU_22);
+        map.addLayer(layer_AjoupaBouillonPLU_22);
+        function pop_CasePilotePLU_23(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_CasePilotePLU_23_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_CasePilotePLU_23',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_CasePilotePLU_23',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_CasePilotePLU_23',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_CasePilotePLU_23',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_CasePilotePLU_23',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_CasePilotePLU_23',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_CasePilotePLU_23');
+        map.getPane('pane_CasePilotePLU_23').style.zIndex = 423;
+        map.getPane('pane_CasePilotePLU_23').style['mix-blend-mode'] = 'normal';
+        var layer_CasePilotePLU_23 = new L.geoJson(json_CasePilotePLU_23, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CasePilotePLU_23',
+            layerName: 'layer_CasePilotePLU_23',
+            pane: 'pane_CasePilotePLU_23',
+            onEachFeature: pop_CasePilotePLU_23,
+            style: style_CasePilotePLU_23_0,
+        });
+        bounds_group.addLayer(layer_CasePilotePLU_23);
+        map.addLayer(layer_CasePilotePLU_23);
+        function pop_BassePointePLU_24(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_BassePointePLU_24_0(feature) {
+            switch(String(feature.properties['Classif'])) {
+                case 'AUc':
+                    return {
+                pane: 'pane_BassePointePLU_24',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'AUs':
+                    return {
+                pane: 'pane_BassePointePLU_24',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_BassePointePLU_24',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'U':
+                    return {
+                pane: 'pane_BassePointePLU_24',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,52,55,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone Ã  vocation d\'Ã©quipements':
+                    return {
+                pane: 'pane_BassePointePLU_24',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone Ã  vocation touristique ou Ã©conomique':
+                    return {
+                pane: 'pane_BassePointePLU_24',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,206,227,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_BassePointePLU_24');
+        map.getPane('pane_BassePointePLU_24').style.zIndex = 424;
+        map.getPane('pane_BassePointePLU_24').style['mix-blend-mode'] = 'normal';
+        var layer_BassePointePLU_24 = new L.geoJson(json_BassePointePLU_24, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BassePointePLU_24',
+            layerName: 'layer_BassePointePLU_24',
+            pane: 'pane_BassePointePLU_24',
+            onEachFeature: pop_BassePointePLU_24,
+            style: style_BassePointePLU_24_0,
+        });
+        bounds_group.addLayer(layer_BassePointePLU_24);
+        map.addLayer(layer_BassePointePLU_24);
+        function pop_GrosMornePLU_25(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_GrosMornePLU_25_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_GrosMornePLU_25',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_GrosMornePLU_25',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_GrosMornePLU_25',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_GrosMornePLU_25',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_GrosMornePLU_25',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_GrosMornePLU_25',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_GrosMornePLU_25');
+        map.getPane('pane_GrosMornePLU_25').style.zIndex = 425;
+        map.getPane('pane_GrosMornePLU_25').style['mix-blend-mode'] = 'normal';
+        var layer_GrosMornePLU_25 = new L.geoJson(json_GrosMornePLU_25, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GrosMornePLU_25',
+            layerName: 'layer_GrosMornePLU_25',
+            pane: 'pane_GrosMornePLU_25',
+            onEachFeature: pop_GrosMornePLU_25,
+            style: style_GrosMornePLU_25_0,
+        });
+        bounds_group.addLayer(layer_GrosMornePLU_25);
+        map.addLayer(layer_GrosMornePLU_25);
+        function pop_SainteMariePLU_26(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_SainteMariePLU_26_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_SainteMariePLU_26',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_SainteMariePLU_26',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_SainteMariePLU_26',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_SainteMariePLU_26',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_SainteMariePLU_26',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_SainteMariePLU_26',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_SainteMariePLU_26');
+        map.getPane('pane_SainteMariePLU_26').style.zIndex = 426;
+        map.getPane('pane_SainteMariePLU_26').style['mix-blend-mode'] = 'normal';
+        var layer_SainteMariePLU_26 = new L.geoJson(json_SainteMariePLU_26, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SainteMariePLU_26',
+            layerName: 'layer_SainteMariePLU_26',
+            pane: 'pane_SainteMariePLU_26',
+            onEachFeature: pop_SainteMariePLU_26,
+            style: style_SainteMariePLU_26_0,
+        });
+        bounds_group.addLayer(layer_SainteMariePLU_26);
+        map.addLayer(layer_SainteMariePLU_26);
+        function pop_LaTrinitPLU_27(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LaTrinitPLU_27_0(feature) {
+            switch(String(feature.properties['name'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LaTrinitPLU_27',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_LaTrinitPLU_27',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_LaTrinitPLU_27',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_LaTrinitPLU_27',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LaTrinitPLU_27',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone à vocation touristique ou économique':
+                    return {
+                pane: 'pane_LaTrinitPLU_27',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(33,128,191,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LaTrinitPLU_27');
+        map.getPane('pane_LaTrinitPLU_27').style.zIndex = 427;
+        map.getPane('pane_LaTrinitPLU_27').style['mix-blend-mode'] = 'normal';
+        var layer_LaTrinitPLU_27 = new L.geoJson(json_LaTrinitPLU_27, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LaTrinitPLU_27',
+            layerName: 'layer_LaTrinitPLU_27',
+            pane: 'pane_LaTrinitPLU_27',
+            onEachFeature: pop_LaTrinitPLU_27,
+            style: style_LaTrinitPLU_27_0,
+        });
+        bounds_group.addLayer(layer_LaTrinitPLU_27);
+        map.addLayer(layer_LaTrinitPLU_27);
+        function pop_LePrcheurPLU_28(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LePrcheurPLU_28_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LePrcheurPLU_28',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_LePrcheurPLU_28',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_LePrcheurPLU_28',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_LePrcheurPLU_28',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LePrcheurPLU_28',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LePrcheurPLU_28',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LePrcheurPLU_28');
+        map.getPane('pane_LePrcheurPLU_28').style.zIndex = 428;
+        map.getPane('pane_LePrcheurPLU_28').style['mix-blend-mode'] = 'normal';
+        var layer_LePrcheurPLU_28 = new L.geoJson(json_LePrcheurPLU_28, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LePrcheurPLU_28',
+            layerName: 'layer_LePrcheurPLU_28',
+            pane: 'pane_LePrcheurPLU_28',
+            onEachFeature: pop_LePrcheurPLU_28,
+            style: style_LePrcheurPLU_28_0,
+        });
+        bounds_group.addLayer(layer_LePrcheurPLU_28);
+        map.addLayer(layer_LePrcheurPLU_28);
+        function pop_LeRobertPLU_29(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_LeRobertPLU_29_0(feature) {
+            switch(String(feature.properties['classif'])) {
+                case 'Zone U':
+                    return {
+                pane: 'pane_LeRobertPLU_29',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U à vocation touristique, économique ou d\'équipement':
+                    return {
+                pane: 'pane_LeRobertPLU_29',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,120,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à court terme':
+                    return {
+                pane: 'pane_LeRobertPLU_29',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,165,81,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone d\'urbanisation future à long terme':
+                    return {
+                pane: 'pane_LeRobertPLU_29',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,227,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone U - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeRobertPLU_29',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,198,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Zone AU - Secteur soumis aux prescriptions du PPRN':
+                    return {
+                pane: 'pane_LeRobertPLU_29',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,185,50,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LeRobertPLU_29');
+        map.getPane('pane_LeRobertPLU_29').style.zIndex = 429;
+        map.getPane('pane_LeRobertPLU_29').style['mix-blend-mode'] = 'normal';
+        var layer_LeRobertPLU_29 = new L.geoJson(json_LeRobertPLU_29, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LeRobertPLU_29',
+            layerName: 'layer_LeRobertPLU_29',
+            pane: 'pane_LeRobertPLU_29',
+            onEachFeature: pop_LeRobertPLU_29,
+            style: style_LeRobertPLU_29_0,
+        });
+        bounds_group.addLayer(layer_LeRobertPLU_29);
+        map.addLayer(layer_LeRobertPLU_29);
+        function pop_PPRNAlafortetmajeur_30(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        var pattern_PPRNAlafortetmajeur_30_0 = new L.StripePattern({
+            weight: 0.1,
+            spaceWeight: 2.0,
+            color: '#b2df8a',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_PPRNAlafortetmajeur_30_0.addTo(map);
+        function style_PPRNAlafortetmajeur_30_0() {
+            return {
+                pane: 'pane_PPRNAlafortetmajeur_30',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_PPRNAlafortetmajeur_30_0
+                interactive: true,
+            }
+        }
+        var pattern_PPRNAlafortetmajeur_30_1 = new L.StripePattern({
+            weight: 0.1,
+            spaceWeight: 2.0,
+            color: '#b2df8a',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_PPRNAlafortetmajeur_30_1.addTo(map);
+        function style_PPRNAlafortetmajeur_30_1() {
+            return {
+                pane: 'pane_PPRNAlafortetmajeur_30',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_PPRNAlafortetmajeur_30_1
+                interactive: true,
+            }
+        }
+        function style_PPRNAlafortetmajeur_30_2() {
+            return {
+                pane: 'pane_PPRNAlafortetmajeur_30',
+                opacity: 1,
+                color: 'rgba(178,223,138,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PPRNAlafortetmajeur_30');
+        map.getPane('pane_PPRNAlafortetmajeur_30').style.zIndex = 430;
+        map.getPane('pane_PPRNAlafortetmajeur_30').style['mix-blend-mode'] = 'normal';
+        var layer_PPRNAlafortetmajeur_30 = new L.geoJson.multiStyle(json_PPRNAlafortetmajeur_30, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PPRNAlafortetmajeur_30',
+            layerName: 'layer_PPRNAlafortetmajeur_30',
+            pane: 'pane_PPRNAlafortetmajeur_30',
+            onEachFeature: pop_PPRNAlafortetmajeur_30,
+            styles: [style_PPRNAlafortetmajeur_30_0,style_PPRNAlafortetmajeur_30_1,style_PPRNAlafortetmajeur_30_2,]
+        });
+        bounds_group.addLayer(layer_PPRNAlafortetmajeur_30);
+        map.addLayer(layer_PPRNAlafortetmajeur_30);
+        function pop_ParcellesidentifiesparlenquteOPAH_31(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_ParcellesidentifiesparlenquteOPAH_31_0(feature) {
+            switch(String(feature.properties['Légende'])) {
+                case 'Bâti':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(241,238,246,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bâti abandonné':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,213,233,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bâti dégradé':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(218,188,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bâti mais potentiellement divisible':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(218,154,203,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bâti potentiellement abandonné':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,119,185,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bâti potentiellement dégradé':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,85,163,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Non bâti':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,52,138,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Non disponible':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,24,113,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Potentiellement non bâti':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,12,90,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Ruines':
+                    return {
+                pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,0,67,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ParcellesidentifiesparlenquteOPAH_31');
+        map.getPane('pane_ParcellesidentifiesparlenquteOPAH_31').style.zIndex = 431;
+        map.getPane('pane_ParcellesidentifiesparlenquteOPAH_31').style['mix-blend-mode'] = 'normal';
+        var layer_ParcellesidentifiesparlenquteOPAH_31 = new L.geoJson(json_ParcellesidentifiesparlenquteOPAH_31, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ParcellesidentifiesparlenquteOPAH_31',
+            layerName: 'layer_ParcellesidentifiesparlenquteOPAH_31',
+            pane: 'pane_ParcellesidentifiesparlenquteOPAH_31',
+            onEachFeature: pop_ParcellesidentifiesparlenquteOPAH_31,
+            style: style_ParcellesidentifiesparlenquteOPAH_31_0,
+        });
+        bounds_group.addLayer(layer_ParcellesidentifiesparlenquteOPAH_31);
+        map.addLayer(layer_ParcellesidentifiesparlenquteOPAH_31);
+        function pop_ParcellesnonbtiesconcernesparlePPRN_32(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_ParcellesnonbtiesconcernesparlePPRN_32_0() {
+            return {
+                pane: 'pane_ParcellesnonbtiesconcernesparlePPRN_32',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,127,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ParcellesnonbtiesconcernesparlePPRN_32');
+        map.getPane('pane_ParcellesnonbtiesconcernesparlePPRN_32').style.zIndex = 432;
+        map.getPane('pane_ParcellesnonbtiesconcernesparlePPRN_32').style['mix-blend-mode'] = 'normal';
+        var layer_ParcellesnonbtiesconcernesparlePPRN_32 = new L.geoJson(json_ParcellesnonbtiesconcernesparlePPRN_32, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ParcellesnonbtiesconcernesparlePPRN_32',
+            layerName: 'layer_ParcellesnonbtiesconcernesparlePPRN_32',
+            pane: 'pane_ParcellesnonbtiesconcernesparlePPRN_32',
+            onEachFeature: pop_ParcellesnonbtiesconcernesparlePPRN_32,
+            style: style_ParcellesnonbtiesconcernesparlePPRN_32_0,
+        });
+        bounds_group.addLayer(layer_ParcellesnonbtiesconcernesparlePPRN_32);
+        map.addLayer(layer_ParcellesnonbtiesconcernesparlePPRN_32);
+        function pop_ParcellesbtiesconcernesparlesprescriptionsduPLU_33(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_ParcellesbtiesconcernesparlesprescriptionsduPLU_33_0() {
+            return {
+                pane: 'pane_ParcellesbtiesconcernesparlesprescriptionsduPLU_33',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,191,111,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ParcellesbtiesconcernesparlesprescriptionsduPLU_33');
+        map.getPane('pane_ParcellesbtiesconcernesparlesprescriptionsduPLU_33').style.zIndex = 433;
+        map.getPane('pane_ParcellesbtiesconcernesparlesprescriptionsduPLU_33').style['mix-blend-mode'] = 'normal';
+        var layer_ParcellesbtiesconcernesparlesprescriptionsduPLU_33 = new L.geoJson(json_ParcellesbtiesconcernesparlesprescriptionsduPLU_33, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ParcellesbtiesconcernesparlesprescriptionsduPLU_33',
+            layerName: 'layer_ParcellesbtiesconcernesparlesprescriptionsduPLU_33',
+            pane: 'pane_ParcellesbtiesconcernesparlesprescriptionsduPLU_33',
+            onEachFeature: pop_ParcellesbtiesconcernesparlesprescriptionsduPLU_33,
+            style: style_ParcellesbtiesconcernesparlesprescriptionsduPLU_33_0,
+        });
+        bounds_group.addLayer(layer_ParcellesbtiesconcernesparlesprescriptionsduPLU_33);
+        map.addLayer(layer_ParcellesbtiesconcernesparlesprescriptionsduPLU_33);
+        function pop_Parcellesnonbties_34(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Parcellesnonbties_34_0() {
+            return {
+                pane: 'pane_Parcellesnonbties_34',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(233,214,26,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Parcellesnonbties_34');
+        map.getPane('pane_Parcellesnonbties_34').style.zIndex = 434;
+        map.getPane('pane_Parcellesnonbties_34').style['mix-blend-mode'] = 'normal';
+        var layer_Parcellesnonbties_34 = new L.geoJson(json_Parcellesnonbties_34, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Parcellesnonbties_34',
+            layerName: 'layer_Parcellesnonbties_34',
+            pane: 'pane_Parcellesnonbties_34',
+            onEachFeature: pop_Parcellesnonbties_34,
+            style: style_Parcellesnonbties_34_0,
+        });
+        bounds_group.addLayer(layer_Parcellesnonbties_34);
+        map.addLayer(layer_Parcellesnonbties_34);
+        function pop_ParcellesbtiesconcernesparlePPRN_35(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_ParcellesbtiesconcernesparlePPRN_35_0() {
+            return {
+                pane: 'pane_ParcellesbtiesconcernesparlePPRN_35',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(195,191,191,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ParcellesbtiesconcernesparlePPRN_35');
+        map.getPane('pane_ParcellesbtiesconcernesparlePPRN_35').style.zIndex = 435;
+        map.getPane('pane_ParcellesbtiesconcernesparlePPRN_35').style['mix-blend-mode'] = 'normal';
+        var layer_ParcellesbtiesconcernesparlePPRN_35 = new L.geoJson(json_ParcellesbtiesconcernesparlePPRN_35, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ParcellesbtiesconcernesparlePPRN_35',
+            layerName: 'layer_ParcellesbtiesconcernesparlePPRN_35',
+            pane: 'pane_ParcellesbtiesconcernesparlePPRN_35',
+            onEachFeature: pop_ParcellesbtiesconcernesparlePPRN_35,
+            style: style_ParcellesbtiesconcernesparlePPRN_35_0,
+        });
+        bounds_group.addLayer(layer_ParcellesbtiesconcernesparlePPRN_35);
+        map.addLayer(layer_ParcellesbtiesconcernesparlePPRN_35);
+        function pop_Parcellesbaties_36(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+        }
+
+        function style_Parcellesbaties_36_0() {
+            return {
+                pane: 'pane_Parcellesbaties_36',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,89,91,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Parcellesbaties_36');
+        map.getPane('pane_Parcellesbaties_36').style.zIndex = 436;
+        map.getPane('pane_Parcellesbaties_36').style['mix-blend-mode'] = 'normal';
+        var layer_Parcellesbaties_36 = new L.geoJson(json_Parcellesbaties_36, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Parcellesbaties_36',
+            layerName: 'layer_Parcellesbaties_36',
+            pane: 'pane_Parcellesbaties_36',
+            onEachFeature: pop_Parcellesbaties_36,
+            style: style_Parcellesbaties_36_0,
+        });
+        bounds_group.addLayer(layer_Parcellesbaties_36);
+        map.addLayer(layer_Parcellesbaties_36);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Parcellesbaties_36.png" /> Parcelles baties': layer_Parcellesbaties_36,'<img src="legend/ParcellesbtiesconcernesparlePPRN_35.png" /> Parcelles bâties concernées par le PPRN': layer_ParcellesbtiesconcernesparlePPRN_35,'<img src="legend/Parcellesnonbties_34.png" /> Parcelles non bâties': layer_Parcellesnonbties_34,'<img src="legend/ParcellesbtiesconcernesparlesprescriptionsduPLU_33.png" /> Parcelles bâties concernées par les prescriptions du PLU': layer_ParcellesbtiesconcernesparlesprescriptionsduPLU_33,'<img src="legend/ParcellesnonbtiesconcernesparlePPRN_32.png" /> Parcelles non bâties concernées par le PPRN': layer_ParcellesnonbtiesconcernesparlePPRN_32,'Parcelles identifiées par l\'enquête OPAH<br /><table><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Bâti0.png" /></td><td>Bâti</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Bâtiabandonné1.png" /></td><td>Bâti abandonné</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Bâtidégradé2.png" /></td><td>Bâti dégradé</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Bâtimaispotentiellementdivisible3.png" /></td><td>Bâti mais potentiellement divisible</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Bâtipotentiellementabandonné4.png" /></td><td>Bâti potentiellement abandonné</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Bâtipotentiellementdégradé5.png" /></td><td>Bâti potentiellement dégradé</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Nonbâti6.png" /></td><td>Non bâti</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Nondisponible7.png" /></td><td>Non disponible</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Potentiellementnonbâti8.png" /></td><td>Potentiellement non bâti</td></tr><tr><td style="text-align: center;"><img src="legend/ParcellesidentifiesparlenquteOPAH_31_Ruines9.png" /></td><td>Ruines</td></tr></table>': layer_ParcellesidentifiesparlenquteOPAH_31,'<img src="legend/PPRNAlafortetmajeur_30.png" /> PPRN - Aléa fort et majeur': layer_PPRNAlafortetmajeur_30,'Le Robert - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LeRobertPLU_29_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LeRobertPLU_29_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/LeRobertPLU_29_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/LeRobertPLU_29_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/LeRobertPLU_29_ZoneUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeRobertPLU_29_ZoneAUSecteursoumisauxprescriptionsduPPRN5.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_LeRobertPLU_29,'Le Prêcheur - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LePrcheurPLU_28_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LePrcheurPLU_28_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/LePrcheurPLU_28_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/LePrcheurPLU_28_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/LePrcheurPLU_28_ZoneUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LePrcheurPLU_28_ZoneAUSecteursoumisauxprescriptionsduPPRN5.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_LePrcheurPLU_28,'La Trinité - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LaTrinitPLU_27_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LaTrinitPLU_27_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/LaTrinitPLU_27_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/LaTrinitPLU_27_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/LaTrinitPLU_27_SecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LaTrinitPLU_27_Zoneàvocationtouristiqueouéconomique5.png" /></td><td>Zone à vocation touristique ou économique</td></tr></table>': layer_LaTrinitPLU_27,'Sainte Marie - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/SainteMariePLU_26_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/SainteMariePLU_26_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/SainteMariePLU_26_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/SainteMariePLU_26_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/SainteMariePLU_26_ZoneUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/SainteMariePLU_26_ZoneAUSecteursoumisauxprescriptionsduPPRN5.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_SainteMariePLU_26,'Gros Morne - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/GrosMornePLU_25_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/GrosMornePLU_25_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/GrosMornePLU_25_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/GrosMornePLU_25_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/GrosMornePLU_25_ZoneUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/GrosMornePLU_25_ZoneAUSecteursoumisauxprescriptionsduPPRN5.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_GrosMornePLU_25,'Basse Pointe - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/BassePointePLU_24_Zonedurbanisationfutureàcourtterme0.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/BassePointePLU_24_Zonedurbanisationfutureàcourtterme1.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/BassePointePLU_24_SecteursoumisauxprescriptionsduPPRN2.png" /></td><td>Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/BassePointePLU_24_ZoneU3.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/BassePointePLU_24_Zoneàvocationdéquipements4.png" /></td><td>Zone à vocation d\'équipements</td></tr><tr><td style="text-align: center;"><img src="legend/BassePointePLU_24_Zoneàvocationtouristiqueouéconomique5.png" /></td><td>Zone à  vocation touristique ou économique</td></tr></table>': layer_BassePointePLU_24,'Case Pilote - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/CasePilotePLU_23_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/CasePilotePLU_23_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/CasePilotePLU_23_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/CasePilotePLU_23_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/CasePilotePLU_23_ZoneUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/CasePilotePLU_23_ZoneAUSecteursoumisauxprescriptionsduPPRN5.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_CasePilotePLU_23,'Ajoupa Bouillon - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/AjoupaBouillonPLU_22_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/AjoupaBouillonPLU_22_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/AjoupaBouillonPLU_22_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/AjoupaBouillonPLU_22_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/AjoupaBouillonPLU_22_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_AjoupaBouillonPLU_22,'Belle Fontaine - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/BelleFontainePLU_21_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/BelleFontainePLU_21_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/BelleFontainePLU_21_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/BelleFontainePLU_21_Zonedurbanisationfutureàlongterme3.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr><tr><td style="text-align: center;"><img src="legend/BelleFontainePLU_21_ZoneUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/BelleFontainePLU_21_ZoneAUSecteursoumisauxprescriptionsduPPRN5.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_BelleFontainePLU_21,'Le Carbet - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LeCarbetPLU_20_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LeCarbetPLU_20_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/LeCarbetPLU_20_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/LeCarbetPLU_20_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeCarbetPLU_20_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_LeCarbetPLU_20,'Grand Riviere - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/GrandRivierePLU_19_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/GrandRivierePLU_19_ZoneUàvocationtouristiqueéconomiqueoudéquipement1.png" /></td><td>Zone U à vocation touristique, économique ou d\'équipement</td></tr><tr><td style="text-align: center;"><img src="legend/GrandRivierePLU_19_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/GrandRivierePLU_19_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/GrandRivierePLU_19_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr></table>': layer_GrandRivierePLU_19,'Le Lorrain - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LeLorrainPLU_18_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LeLorrainPLU_18_ZoneUàvocationtouristiqueouéconomique1.png" /></td><td>Zone U à vocation touristique ou économique</td></tr><tr><td style="text-align: center;"><img src="legend/LeLorrainPLU_18_ZoneAUSecteursoumisauxprescriptionsduPPRN2.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeLorrainPLU_18_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeLorrainPLU_18_Zonedurbanisationfuture4.png" /></td><td>Zone d\'urbanisation future</td></tr></table>': layer_LeLorrainPLU_18,'Marigot - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/MarigotPLU_17_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/MarigotPLU_17_ZoneUàvocationtouristiqueouéconomique1.png" /></td><td>Zone U à vocation touristique ou économique</td></tr><tr><td style="text-align: center;"><img src="legend/MarigotPLU_17_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/MarigotPLU_17_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/MarigotPLU_17_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/MarigotPLU_17_Zonedurbanisationfutureàlongterme5.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr></table>': layer_MarigotPLU_17,'Le Morne Rouge - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LeMorneRougePLU_16_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneRougePLU_16_ZoneUàvocationtouristiqueouéconomique1.png" /></td><td>Zone U à vocation touristique ou économique</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneRougePLU_16_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneRougePLU_16_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneRougePLU_16_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneRougePLU_16_Zonedurbanisationfutureàlongterme5.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr></table>': layer_LeMorneRougePLU_16,'Saint Pierre - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/SaintPierrePLU_15_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/SaintPierrePLU_15_ZoneUàvocationtouristiqueouéconomique1.png" /></td><td>Zone U à vocation touristique ou économique</td></tr><tr><td style="text-align: center;"><img src="legend/SaintPierrePLU_15_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/SaintPierrePLU_15_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/SaintPierrePLU_15_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/SaintPierrePLU_15_Zonedurbanisationfutureàlongterme5.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr></table>': layer_SaintPierrePLU_15,'Le Morne Vert  - PLU<br /><table><tr><td style="text-align: center;"><img src="legend/LeMorneVertPLU_14_ZoneU0.png" /></td><td>Zone U</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneVertPLU_14_ZoneUàvocationtouristiqueouéconomique1.png" /></td><td>Zone U à vocation touristique ou économique</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneVertPLU_14_Zonedurbanisationfutureàcourtterme2.png" /></td><td>Zone d\'urbanisation future à court terme</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneVertPLU_14_ZoneUSecteursoumisauxprescriptionsduPPRN3.png" /></td><td>Zone U - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneVertPLU_14_ZoneAUSecteursoumisauxprescriptionsduPPRN4.png" /></td><td>Zone AU - Secteur soumis aux prescriptions du PPRN</td></tr><tr><td style="text-align: center;"><img src="legend/LeMorneVertPLU_14_Zonedurbanisationfutureàlongterme5.png" /></td><td>Zone d\'urbanisation future à long terme</td></tr></table>': layer_LeMorneVertPLU_14,'basse pointe - projets<br /><table><tr><td style="text-align: center;"><img src="legend/bassepointeprojets_13_Constructiondunbâtipourregroupementdesétablissementsscolaires0.png" /></td><td>Construction d\'un bâti pour regroupement des établissements scolaires</td></tr><tr><td style="text-align: center;"><img src="legend/bassepointeprojets_13_RéalisationduneMARPA1.png" /></td><td>Réalisation d\'une MARPA</td></tr><tr><td style="text-align: center;"><img src="legend/bassepointeprojets_13_RécupérationdunterrainstratégiqueclasséAU2.png" /></td><td>Récupération d’un terrain stratégique classé AU</td></tr><tr><td style="text-align: center;"><img src="legend/bassepointeprojets_13_Refontedeléglise3.png" /></td><td>Refonte de l\'église</td></tr></table>': layer_bassepointeprojets_13,'ajoupa_bouillon - projets<br /><table><tr><td style="text-align: center;"><img src="legend/ajoupa_bouillonprojets_12_Consctructiondunestationserviceenentréedebourg0.png" /></td><td>Consctruction d\'une station-service en entrée de bourg</td></tr><tr><td style="text-align: center;"><img src="legend/ajoupa_bouillonprojets_12_CréationdelogementsséniorstypeMARPAsurterrainde35HaàproximitédeCitéGrenade1.png" /></td><td>Création de logements séniors type MARPA  sur terrain de 3,5 Ha à proximité de Cité Grenade</td></tr></table>': layer_ajoupa_bouillonprojets_12,'le_carbet - projets<br /><table><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_Centrecommercial0.png" /></td><td>Centre commercial</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_Délocalisationcollège1.png" /></td><td>Délocalisation collège</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_Déolocalisationdesservicestechniques2.png" /></td><td>Déolocalisation des services techniques</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_Equipementscommerciauxdanslesquartiersexcentrés3.png" /></td><td>Equipements commerciaux dans les quartiers excentrés</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_Marchéfruitsetlégumes4.png" /></td><td>Marché fruits et légumes</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_Parkingvisiteursetenseignants5.png" /></td><td>Parking visiteurs et enseignants</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_RénovationextensiondelHôteldeVille6.png" /></td><td>Rénovation / extension de l\'Hôtel de Ville</td></tr><tr><td style="text-align: center;"><img src="legend/le_carbetprojets_11_7.png" /></td><td></td></tr></table>': layer_le_carbetprojets_11,'macouba - projets<br /><table><tr><td style="text-align: center;"><img src="legend/macoubaprojets_10_CréationdelogementsderrièrelelottissementCasePaul0.png" /></td><td>Création de logements derrière le lottissement Case Paul</td></tr><tr><td style="text-align: center;"><img src="legend/macoubaprojets_10_Créationdunerésidencesénior1.png" /></td><td>Création d\'une résidence sénior</td></tr><tr><td style="text-align: center;"><img src="legend/macoubaprojets_10_Terrainde2000m2enfricheàutiliser2.png" /></td><td>Terrain de 2 000m2 en friche à utiliser</td></tr></table>': layer_macoubaprojets_10,'Fonds Saint Denis - projets<br /><table><tr><td style="text-align: center;"><img src="legend/FondsSaintDenisprojets_9_ConstructionduneépiceriesocialesurlequartierdeLaTranchéesur2étages0.png" /></td><td>Construction d’une épicerie sociale sur le quartier de La Tranchée sur 2 étages</td></tr><tr><td style="text-align: center;"><img src="legend/FondsSaintDenisprojets_9_Constructiondunterraindesport1.png" /></td><td>Construction d\'un terrain de sport</td></tr><tr><td style="text-align: center;"><img src="legend/FondsSaintDenisprojets_9_CréationdunmuséesurleterraindelancienobservatoirequiappartientàlaCTM2.png" /></td><td>Création d’un musée sur le terrain de l’ancien observatoire qui appartient à la CTM</td></tr><tr><td style="text-align: center;"><img src="legend/FondsSaintDenisprojets_9_OuvertureversSaintPierrevialecolYangTingTravauxdinfrastructureroutièretropforte3.png" /></td><td>Ouverture vers Saint Pierre via le col Yang Ting. Travaux d’infrastructure routière trop forte</td></tr><tr><td style="text-align: center;"><img src="legend/FondsSaintDenisprojets_9_RéalisationdunEHPADsuruneparcelleprivée4.png" /></td><td>Réalisation d’un EHPAD sur une parcelle privée</td></tr><tr><td style="text-align: center;"><img src="legend/FondsSaintDenisprojets_9_Rénovationdeléglise5.png" /></td><td>Rénovation de l\'église</td></tr></table>': layer_FondsSaintDenisprojets_9,'saint_pierre - projets<br /><table><tr><td style="text-align: center;"><img src="legend/saint_pierreprojets_8_Créationdunezonedemouillageorganisée0.png" /></td><td>Création d’une zone de mouillage organisée</td></tr><tr><td style="text-align: center;"><img src="legend/saint_pierreprojets_8_Remiseauxnormesparasismiquedesécoles1.png" /></td><td>Remise aux normes parasismique des écoles</td></tr><tr><td style="text-align: center;"><img src="legend/saint_pierreprojets_8_RénovationdelanciennecantineduStadeGabrielSUVELOR2.png" /></td><td>Rénovation de l’ancienne cantine du Stade Gabriel SUVELOR</td></tr><tr><td style="text-align: center;"><img src="legend/saint_pierreprojets_8_RénovationetmiseauxnormesdubâtimentROYCAMILLE3.png" /></td><td>Rénovation et mise aux normes du bâtiment ROY CAMILLE</td></tr></table>': layer_saint_pierreprojets_8,'le_lorrain - projets<br /><table><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_CréationduneKassaverie0.png" /></td><td>Création d\'une Kassaverie</td></tr><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_CréationduneZACartisanale1.png" /></td><td>Création d\'une ZAC artisanale</td></tr><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_DéchetterieàconstruiresurlancienterrainSICA2.png" /></td><td>Déchetterie à construire sur l\'ancien terrain SICA</td></tr><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_DéveloppementdunezoneéconomiqueenentréedebourgdanslequartierdeSeguineau3.png" /></td><td>Développement d\'une zone économique en entrée de bourg dans le quartier de Seguineau</td></tr><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_OpérationpubliqueàMorneCapotvisantàaméliorerlamixitésocialeprojetencoursdedéfinitionHorizonmoyenterme4.png" /></td><td>Opération publique à Morne Capot visant à améliorer la mixité sociale (projet en cours de définition. Horizon moyen terme).</td></tr><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_Projetprivédaccueildetouristescentreéquestre5.png" /></td><td>Projet privé d\'accueil de touristes + centre équestre</td></tr><tr><td style="text-align: center;"><img src="legend/le_lorrainprojets_7_ReconstructiondelaSTEP6.png" /></td><td>Reconstruction de la STEP</td></tr></table>': layer_le_lorrainprojets_7,'gros_morne - projets<br /><table><tr><td style="text-align: center;"><img src="legend/gros_morneprojets_6_Echangefoncierencours0.png" /></td><td>Echange foncier en cours</td></tr><tr><td style="text-align: center;"><img src="legend/gros_morneprojets_6_ParcellesacquisesparlEPFL1.png" /></td><td>Parcelles acquises par l\'EPFL</td></tr><tr><td style="text-align: center;"><img src="legend/gros_morneprojets_6_Parcellesdeprojetredynamisationdubourg2.png" /></td><td>Parcelles de projet : redynamisation du bourg</td></tr><tr><td style="text-align: center;"><img src="legend/gros_morneprojets_6_ParcellesencoursdacquisitionparlEPFL3.png" /></td><td>Parcelles en cours d\'acquisition par l\'EPFL</td></tr></table>': layer_gros_morneprojets_6,'la trinité - projets<br /><table><tr><td style="text-align: center;"><img src="legend/latrinitprojets_5_MiseenplaceduneReservefoncière0.png" /></td><td>Mise en place d\'une Reserve foncière</td></tr></table>': layer_latrinitprojets_5,'Le Precheur - projets<br /><table><tr><td style="text-align: center;"><img src="legend/LePrecheurprojets_4_ProjetderelogementCHAMBOLO0.png" /></td><td>Projet de relogement " CHAMBOLO"</td></tr><tr><td style="text-align: center;"><img src="legend/LePrecheurprojets_4_ProjetderelogementHabitatsRenouvelés1.png" /></td><td>Projet de relogement "Habitats Renouvelés"</td></tr></table>': layer_LePrecheurprojets_4,'le robert - projets<br /><table><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_Aménagementdufrontdemer0.png" /></td><td>Aménagement du front de mer</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_Constructiondelamédiathèque1.png" /></td><td>Construction de la médiathèque</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_Constructionducentreadministratif2.png" /></td><td>Construction du centre administratif</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_Esplanadeenamphithéâtre3.png" /></td><td>Esplanade en amphithéâtre</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_Maisonpourtous4.png" /></td><td>Maison pour tous</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_RénovationurbainesurlîlotDerrièreBourg5.png" /></td><td>Rénovation urbaine sur l’îlot Derrière Bourg</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_RénovationurbainesurlîlotDerrièreBourgparcellesappartenantàlEtat6.png" /></td><td>Rénovation urbaine sur l’îlot Derrière Bourg - parcelles appartenant à l’Etat</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_RénovationurbainesurlîlotGibraltarparcellesappartenantàlEtat7.png" /></td><td>Rénovation urbaine sur l’îlot Gibraltar - parcelles appartenant à l’Etat</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_RénovationurbainesurlîlotGibraltarparcellesencoursdexpropriationparlEPFL8.png" /></td><td>Rénovation urbaine sur l’îlot Gibraltar - parcelles en cours d’expropriation par l’EPFL</td></tr><tr><td style="text-align: center;"><img src="legend/lerobertprojets_3_RestructurationdelîlotdelaPoste9.png" /></td><td>Restructuration de l’îlot de la Poste</td></tr></table>': layer_lerobertprojets_3,'marigot - projets<br /><table><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_24logementsSIMAR0.png" /></td><td>24 logements SIMAR</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_Acceuildejourpourpersonnesâgées1.png" /></td><td>Acceuil de jour pour personnes âgées</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_AiredejeuxFondsdOr2.png" /></td><td>Aire de jeux Fonds d\'Or</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_AménagementdelaBaiedesFondsdOr3.png" /></td><td>Aménagement de la Baie des Fonds d\'Or</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_Constructiondungymnase4.png" /></td><td>Construction d\'un gymnase</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_EcoleBaignoire5.png" /></td><td>Ecole Baignoire</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_Miseenplaceduneréservefoncière6.png" /></td><td>Mise en place d\'une réserve foncière</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_ProjetSeguineau7.png" /></td><td>Projet Seguineau</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_RégularisationdoccupantssanstitredeséjourMazureBasduTemple8.png" /></td><td>Régularisation d\'occupants sans titre de séjour (Mazure, Bas du Temple)</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_Sentiertouristique9.png" /></td><td>Sentier touristique</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_StadedePapin10.png" /></td><td>Stade de Papin</td></tr><tr><td style="text-align: center;"><img src="legend/marigotprojets_2_ZacdelaPointe11.png" /></td><td>Zac de la Pointe</td></tr></table>': layer_marigotprojets_2,'morne_vert - projets<br /><table><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_Ateliercentretechnique0.png" /></td><td>Atelier centre technique</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_Batidelaposte1.png" /></td><td>Bati de la poste</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_Constructiondunerésidencesénior2.png" /></td><td>Construction d\'une résidence sénior</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_DésenclavementbourgetdéssertezoneAU3.png" /></td><td>Désenclavement bourg et désserte zone AU</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_DésenclavementCantonSuisseviaMorneMadame4.png" /></td><td>Désenclavement Canton Suisse via Morne Madame</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_Exploitationdentscreusescentrebourg5.png" /></td><td>Exploitation dents creuses centre bourg</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_Petiteplacedemarché6.png" /></td><td>Petite place de marché</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_ProjetdeparkingBoutBarrière7.png" /></td><td>Projet de parking Bout Barrière</td></tr><tr><td style="text-align: center;"><img src="legend/morne_vertprojets_1_projetdhéliport8.png" /></td><td>projet d\'héliport</td></tr></table>': layer_morne_vertprojets_1,'sainte_marie - projets<br /><table><tr><td style="text-align: center;"><img src="legend/sainte_marieprojets_0_CréationdeladéchetterieàlentréedelafuturcitéeScolairesurterrainde3000m20.png" /></td><td>Création de la déchetterie, à l’entrée de la futur citée Scolaire sur terrain de 3 000m2.</td></tr><tr><td style="text-align: center;"><img src="legend/sainte_marieprojets_0_CréationdufutursitescolaireCollègeLycéedeBelleEtoile1.png" /></td><td>Création du futur site scolaire Collège + Lycée de Belle Etoile</td></tr><tr><td style="text-align: center;"><img src="legend/sainte_marieprojets_0_Créationduncentredetri2.png" /></td><td>Création d\'un centre de tri</td></tr><tr><td style="text-align: center;"><img src="legend/sainte_marieprojets_0_Créationdunecasernedepompier3.png" /></td><td>Création d\'une caserne de pompier</td></tr><tr><td style="text-align: center;"><img src="legend/sainte_marieprojets_0_Créationdunegendarmerie4.png" /></td><td>Création d\'une gendarmerie</td></tr><tr><td style="text-align: center;"><img src="legend/sainte_marieprojets_0_Restauration5.png" /></td><td>Restauration</td></tr></table>': layer_sainte_marieprojets_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
